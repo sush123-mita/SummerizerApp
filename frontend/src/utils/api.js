@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API= axios.create({
-    baseURL : "https://summerizer-74o64pvqz-sushmita-singhs-projects.vercel.app/api"
+    baseURL : "https://summerizer-app.vercel.app/api"
 })
 
 
