@@ -28,9 +28,9 @@ app.get('/',(req,res)=>{
     })
 })
 
-app.use("/api/auth",authRoutes)
-app.use('/api/summarizer',summarizeRoutes)
-app.use('/api/article',articleRoute)
+app.use("/auth",authRoutes)
+app.use('/summarizer',summarizeRoutes)
+app.use('/article',articleRoute)
 
 let isConnected = false;
 async function ensureDB(){
