@@ -40,7 +40,6 @@ async function ensureDB(){
     }
 }
 
-export default async function handler(req, res){
-    await ensureDB();
-    return app(req,res);
-}
+await ensureDB();
+
+export default app;
