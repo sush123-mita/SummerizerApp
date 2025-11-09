@@ -3,10 +3,10 @@ import cors from 'cors';
 import morgan from 'morgan'
 import dotenv from 'dotenv';
 import helmet from 'helmet';
-import connectDB from './config/connectDB.js'
-import authRoutes from './routes/authRoutes.js'
-import articleRoute from './routes/articleRoute.js'
-import summarizeRoutes from "./routes/summarizeRoutes.js"
+import connectDB from '../config/connectDB.js'
+import authRoutes from '../routes/authRoutes.js'
+import articleRoute from '../routes/articleRoute.js'
+import summarizeRoutes from "../routes/summarizeRoutes.js"
 
 dotenv.config()
 
@@ -32,9 +32,15 @@ app.use("/api/auth",authRoutes)
 app.use('/api/summarizer',summarizeRoutes)
 app.use('/api/article',articleRoute)
 
-connectDB()
-.then(()=>{
-    app.listen(PORT,()=>{
-        console.log(`Server started at port ${PORT} `)
-    })
-})
+let isConnected = false;
+async function ensureDB(){
+    if(!isConnected){
+        await connectDB();
+        isConnected=true;
+    }
+}
+
+export default async function handler(req, res){
+    await ensureDB();
+    return app(req,res);
+}
